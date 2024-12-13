@@ -8,6 +8,16 @@
   src: url('./fonts/SVBold.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'SVRegular';
+  src: url('./fonts/SVRegular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'SVCaps';
+  src: url('./fonts/SVCaps.ttf') format('truetype');
+}
+
 * {
   padding: 0;
   margin: 0;

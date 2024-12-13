@@ -1,37 +1,56 @@
+/* DEFAULT STYLES */
+img {
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+
+  z-index: 1;
+}
+
 .prevent-select {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
 }
 
-.App {
-  height: 100vh;
-  width: 100vw;
-  overflow-x: hidden;
-  padding: 32px;
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
+.flexbox {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.App {
+  padding: 32px;
+  background-image: url('./images/background.png');
+  background-size: cover;
+  z-index: -99;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CLOCK Styles */
 .Clock {
+  margin: 32px;
   width: 15vw;
-  float: right;
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .Clock p {
   width: 100%;
   position: absolute;
   transform-origin: 50% 50%;
-}
-
-/* Prevent selection or dragging */
-.Clock img {
-  -webkit-user-drag: none;
-  user-drag: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  pointer-events: none;
 }
 
 .clock-hand {
@@ -58,6 +77,7 @@
   top: 46.5%;
 }
 
+/* SHAKE ANIMATION for TIME */
 @keyframes shake {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
  10% { transform: translate(-1px, -2px) rotate(-1deg); }
@@ -100,7 +120,7 @@
   position: absolute;
   top: 26.5%;
   transform-origin: 50% 50%;
-  z-index: -1;
+  z-index: 0;
 }
 
 .weather {
@@ -111,7 +131,54 @@
   left: 73%;
 }
 
-.stefunspan {
-  display:inline-block;
-  width: 23.5px;
+/* TITLE SCREEN Styles */
+.title-screen {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.title-screen h1 {
+  font-family: SVCaps;
+  font-size: 10vh;
+  color: red;
+  text-align: center;
+}
+
+.starguess-logo {
+  width: 50%;
+}
+
+.btn-container {
+  height: auto;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10vw;
+}
+
+.title-screen-btn {
+  background: none;
+  border: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('./assets/btn2.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  font-family: SVBold;
+  font-size: 2vw;
+  color: #ce5252;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  width: 10vw;
+  height: 8vw;
+  padding: 10px;
+  overflow: hidden;
 }

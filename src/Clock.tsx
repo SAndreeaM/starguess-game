@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import { WEATHER_API_KEY } from './config'
 
 // Import assets
 import clock from './assets/clock.svg'
@@ -57,7 +58,7 @@ const Clock: React.FC = () => {
 
   useEffect(() => {
     const fetchWeather = () => {
-      fetch('https://api.weatherapi.com/v1/current.json?key=f3762f6505474046bc8164622241212&q=auto:ip')
+      fetch(`https://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=auto:ip`)
         .then(response => response.json())
         .then(data => {
           setWeatherCode(data.current.condition.code);
@@ -67,9 +68,9 @@ const Clock: React.FC = () => {
     };
 
     fetchWeather(); // Initial fetch
-    const weatherTimer = setInterval(fetchWeather, 3600000); // Fetch every hour
+    const timer = setInterval(fetchWeather, 3600000); // Fetch every hour
 
-    return () => clearInterval(weatherTimer);
+    return () => clearInterval(timer);
   }, []);
 
   let weather: string;
@@ -110,8 +111,8 @@ const Clock: React.FC = () => {
   }
   
   // Handle streak
-  let streak: string = '00000000';
-  let streakArray: string[] = streak.split('');
+  let streak: number = 0;
+  let streakArray: string[] = streak.toString().split('');
   const streakComponent = streakArray.map((digit, index) => (
     <span>{digit}</span>
   ))
