@@ -73,11 +73,11 @@ const Clock: React.FC = () => {
   }, []);
 
   let weather: string;
-  let weatherRain: number[] = [1063, 1150, 1153, 1168, 1171, 1180, 1183, 1186, 1189, 1192, 1195, 1198, 1201, 1240, 1243, 1246, 1273, 1276];
-  let weatherSnow: number[] = [1066, 1114, 1117, 1210, 1213, 1216, 1219, 1222, 1225, 1237, 1255, 1258, 1261, 1264, 1279, 1282];
-  let weatherWind: number[] = [1030, 1135, 1147];
-  let weatherStorm: number[] = [1087, 1273, 1276, 1279, 1282];
-  let weatherSun: number[] = [1000, 1003, 1006, 1009];
+  const weatherRain: number[] = [1063, 1150, 1153, 1168, 1171, 1180, 1183, 1186, 1189, 1192, 1195, 1198, 1201, 1240, 1243, 1246, 1273, 1276];
+  const weatherSnow: number[] = [1066, 1114, 1117, 1210, 1213, 1216, 1219, 1222, 1225, 1237, 1255, 1258, 1261, 1264, 1279, 1282];
+  const weatherWind: number[] = [1030, 1135, 1147];
+  const weatherStorm: number[] = [1087, 1273, 1276, 1279, 1282];
+  const weatherSun: number[] = [1000, 1003, 1006, 1009];
 
   if (weatherCode !== null) {
     if (weatherRain.includes(weatherCode)) {
@@ -108,6 +108,13 @@ const Clock: React.FC = () => {
   } else {
     rotation = 0; // 2am to 6am stays at 0 degrees
   }
+  
+  // Handle streak
+  let streak: string = '00000000';
+  let streakArray: string[] = streak.split('');
+  const streakComponent = streakArray.map((digit, index) => (
+    <span>{digit}</span>
+  ))
 
   return (
     <div className='Clock prevent-select'>
@@ -116,7 +123,9 @@ const Clock: React.FC = () => {
       <img src={clock} alt="Clock" />
       <p className='date'>{formattedDate}</p>
       <p className={`time ${shakeClass}`} style={{ color: isNightTime ? 'red' : 'inherit' }}>{formattedTime}</p>
-      <p className='streak'>0</p>
+      <div className='streak'>
+        {streakComponent}
+      </div>
       <img className='clock-hand' src={clockHand} alt="Clock Hand" style={{ transform: `rotate(${rotation}deg)`, transition: 'transform 1s linear' }} />
     </div>
   )

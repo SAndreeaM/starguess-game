@@ -23,6 +23,7 @@
   transform-origin: 50% 50%;
 }
 
+/* Prevent selection or dragging */
 .Clock img {
   -webkit-user-drag: none;
   user-drag: none;
@@ -77,14 +78,21 @@
 }
 
 .streak {
+  width: 100%;
+  position: absolute;
   font-family: SVBold;
   font-size: 1.75vw;
   text-align: end;
   color: maroon;
-  letter-spacing: .17vw;
   top: 78.5%;
-  left: -9.5%;
+  left: -10%;
   transform-origin: 100% 50%;
+}
+
+.streak > span {
+  display: inline-block;
+  width : 1.25vw;
+  text-align: center;
 }
 
 .season, .weather {
@@ -101,4 +109,9 @@
 
 .season {
   left: 73%;
+}
+
+.stefunspan {
+  display:inline-block;
+  width: 23.5px;
 }
