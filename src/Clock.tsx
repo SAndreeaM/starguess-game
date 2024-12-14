@@ -1,28 +1,32 @@
-import { useState, useEffect } from 'react'
-import './App.css'
-import { WEATHER_API_KEY } from './config'
+import { useState, useEffect } from 'react';
+import './Clock.css';
+import { WEATHER_API_KEY } from './config';
 
 // Import assets
-import clock from './assets/clock.svg'
-import clockHand from './assets/clock-hand.svg'
+import clock from './assets/clock.svg';
+import clockHand from './assets/clock-hand.svg';
 
-import spring from './assets/spring.svg'
-import summer from './assets/summer.svg'
-import autumn from './assets/autumn.svg'
-import winter from './assets/winter.svg'
+import spring from './assets/spring.svg';
+import summer from './assets/summer.svg';
+import autumn from './assets/autumn.svg';
+import winter from './assets/winter.svg';
 
-import festival from './assets/festival.svg'
-import rain from './assets/rain.svg'
-import snow from './assets/snow.svg'
-import wind_spring from './assets/wind_spring.svg'
-import storm from './assets/storm.svg'
-import sun from './assets/sun.svg'
-import wedding_day from './assets/wedding_day.svg'
-import wind_autumn from './assets/wind_autumn.svg'
+import festival from './assets/festival.svg';
+import rain from './assets/rain.svg';
+import snow from './assets/snow.svg';
+import wind_spring from './assets/wind_spring.svg';
+import storm from './assets/storm.svg';
+import sun from './assets/sun.svg';
+import wedding_day from './assets/wedding_day.svg';
+import wind_autumn from './assets/wind_autumn.svg';
 
-const Clock: React.FC = () => {
-  // Set and update date
+interface Props {
+  setIsNightTime: (isNightTime: boolean) => void;
+}
+
+const Clock: React.FC<Props> = ({ setIsNightTime }) => {
   const [date, setDate] = useState<Date>(new Date());
+  const [isNightTime, setIsNightTimeState] = useState<boolean>(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -31,15 +35,19 @@ const Clock: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const hours = date.getHours();
+    const isNight = hours >= 0 && hours < 6; // Night time between 12am - 6am
+    setIsNightTime(isNight);
+    setIsNightTimeState(isNight);
+  }, [date, setIsNightTime]);
+
   const days: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const formattedDate: string = `${days[date.getDay()]}. ${date.getDate()}`;
 
-  // Handle time
   const formattedTime: string = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-  const isNightTime: boolean = date.getHours() >= 0 && date.getHours() < 6; // Night time between 12am - 6am
-  const shakeClass = isNightTime ? 'shake' : ''; // Shake during night time
+  const shakeClass = isNightTime ? 'shake' : '';
 
-  // Determine season
   const month: number = date.getMonth();
   let season: string;
   if (month >= 2 && month <= 4) {
@@ -52,7 +60,6 @@ const Clock: React.FC = () => {
     season = winter;
   }
 
-  // Determine weather
   const [weatherCode, setWeatherCode] = useState<number | null>(null);
   const [weatherText, setWeatherText] = useState<string | null>(null);
 
@@ -67,8 +74,8 @@ const Clock: React.FC = () => {
         .catch(error => console.error('Error fetching weather:', error));
     };
 
-    fetchWeather(); // Initial fetch
-    const timer = setInterval(fetchWeather, 3600000); // Fetch every hour
+    fetchWeather();
+    const timer = setInterval(fetchWeather, 3600000);
 
     return () => clearInterval(timer);
   }, []);
@@ -92,29 +99,27 @@ const Clock: React.FC = () => {
     } else if (weatherSun.includes(weatherCode)) {
       weather = sun;
     } else {
-      weather = sun; // Default to sun if no match
+      weather = sun;
     }
   } else {
-    weather = sun; // Default to sun if weather is null
+    weather = sun;
   }
 
-  // Calculate clock hand rotation
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const seconds = date.getSeconds();
   let rotation: number;
   if (hours >= 6 && hours < 26) {
     const totalSeconds = (hours - 6) * 3600 + minutes * 60 + seconds;
-    rotation = -180 + (totalSeconds / 72000) * 180; // 6am to 2am from -180 degrees to 0 degrees
+    rotation = -180 + (totalSeconds / 72000) * 180;
   } else {
-    rotation = 0; // 2am to 6am stays at 0 degrees
+    rotation = 0;
   }
-  
-  // Handle streak
+
   let streak: number = 0;
   let streakArray: string[] = streak.toString().split('');
   const streakComponent = streakArray.map((digit, index) => (
-    <span>{digit}</span>
+    <span key={index}>{digit}</span>
   ))
 
   return (
@@ -132,4 +137,4 @@ const Clock: React.FC = () => {
   )
 }
 
-export default Clock
+export default Clock;

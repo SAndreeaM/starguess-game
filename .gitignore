@@ -25,3 +25,8 @@ dist-ssr
 
 # Config file
 src/config.ts
+
+# Assets
+src/assets/
+src/fonts/
+src/images/

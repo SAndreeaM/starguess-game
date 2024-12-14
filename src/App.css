@@ -1,218 +1,46 @@
 /* DEFAULT STYLES */
 img {
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  pointer-events: none;
-
-  z-index: 1;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .prevent-select {
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 html, body {
-  height: 100%;
-  margin: 0;
+    height: 100%;
+    margin: 0;
 }
 
 .flexbox {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
 }
 
 .App {
-  padding: 32px;
-  background-image: url('./images/background.png');
-  background-size: cover;
-  background-position: center;
-  z-index: -99;
+    padding: 32px;
+    background-size: cover;
+    background-position: center;
+    z-index: -99;
 
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    transition: background-image 1s ease-in-out;
 }
 
-/* CLOCK Styles */
-.Clock {
-  margin: 32px;
-  width: 15vw;
-  position: absolute;
-  top: 0;
-  right: 0;
+.App.day {
+    background-image: url('./images/background-day.png');
 }
 
-.Clock p {
-  width: 100%;
-  position: absolute;
-  transform-origin: 50% 50%;
-}
-
-.clock-hand {
-  width: 1.3vw;
-  position: absolute;
-  transform-origin: 50% 100%;
-  top: 5%;
-  left: 26.5%;
-  z-index: 2;
-}
-
-.date, .time {
-  font-family: SVThin;
-  font-size: 2vw;
-  text-align: center;
-  left: 16%;
-}
-
-.date {
-  top: 9.5%;
-}
-
-.time {
-  top: 46.5%;
-}
-
-/* SHAKE ANIMATION for TIME */
-@keyframes shake {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
- 10% { transform: translate(-1px, -2px) rotate(-1deg); }
- 20% { transform: translate(-3px, 0px) rotate(1deg); }
- 30% { transform: translate(3px, 2px) rotate(0deg); }
- 40% { transform: translate(1px, -1px) rotate(1deg); }
- 50% { transform: translate(-1px, 2px) rotate(-1deg); }
- 60% { transform: translate(-3px, 1px) rotate(0deg); }
- 70% { transform: translate(3px, 1px) rotate(-1deg); }
- 80% { transform: translate(-1px, -1px) rotate(1deg); }
- 90% { transform: translate(1px, 2px) rotate(0deg); }
-}
-
-.shake {
-  animation: shake 0.5s infinite;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-}
-
-.streak {
-  width: 100%;
-  position: absolute;
-  font-family: SVBold;
-  font-size: 1.75vw;
-  text-align: end;
-  color: maroon;
-  top: 78.5%;
-  left: -10%;
-  transform-origin: 100% 50%;
-}
-
-.streak > span {
-  display: inline-block;
-  width : 1.25vw;
-  text-align: center;
-}
-
-.season, .weather {
-  width: 2.6vw;
-  position: absolute;
-  top: 26.5%;
-  transform-origin: 50% 50%;
-  z-index: 0;
-}
-
-.weather {
-  left: 40%;
-}
-
-.season {
-  left: 73%;
-}
-
-/* TITLE SCREEN Styles */
-.title-screen {
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 32px;
-  width: 100%;
-  height: 100%;
-}
-
-.starguess-logo-container {
-  width: 50%;
-  
-  position: relative;
-  
-  justify-content: center;
-  align-items: center;
-
-  height: auto;
-}
-
-.starguess-logo-container > * {
-  width: 100%;
-}
-
-.starguess-logo {
-  position: absolute;
-  z-index: 2;
-  padding: 3vw;
-}
-
-.starguess-logo-bg {
-  z-index: 1;
-
-  display: block;
-}
-
-.btn-container {
-  height: 20vh;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  gap: 10vw;
-}
-
-.title-screen-btn {
-  background: none;
-  border: none;
-
-  justify-content: center;
-  align-items: center;
-  background-image: url('./assets/btn2.svg');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  font-family: SVBold;
-  font-size: 2vw;
-  color: #ce5252;
-  border: none;
-  cursor: pointer;
-  text-align: center;
-  width: 10vw;
-  height: 8vw;
-  padding: 10px;
-  overflow: hidden;
-  position: relative;
-}
-
-.title-screen-btn::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.title-screen-btn:hover::after {
-  opacity: 1;
+.App.night {
+    background-image: url('./images/background-night.png');
 }
