@@ -27,15 +27,17 @@ interface Props {
 }
 
 const TitleScreen: React.FC<Props> = ({ onPageChange, className }) => {
+    // Leaf click count
     let leafClickCount = 0;
 
     // Setup buttons
     const buttons: { text: string, page: Page }[] = [
-        { text: 'Daily Challenge', page: Page.Daily },
-        { text: 'Endless Mode', page: Page.Endless },
-        { text: 'About', page: Page.About }
+        { text: 'Daily Challenge', page: "daily" },
+        { text: 'Endless Mode', page: "endless" },
+        { text: 'About', page: "about" }
     ];
 
+    // Generate button elements
     const buttonElements = buttons.map((button, index) => (
         <div key={index} className='button-container flexbox'>
             <img className='button-bg' src={btn2} alt="Button Background" />

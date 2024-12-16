@@ -1,5 +1,10 @@
 import React from 'react';
 
+import './GameScreen.css';
+
+// Import assets
+import scroll from './assets/scroll.png';
+
 interface GameScreenProps {
     className?: string;
 }
@@ -7,7 +12,7 @@ interface GameScreenProps {
 const GameScreen: React.FC<GameScreenProps> = ({ className }) => {
     return (
         <div className={`game-screen flexbox page-container ${className}`}>
-            <h1>Welcome to the Star Guess Game!</h1>
+            <input className='search-bar' type="text" placeholder="Search..." />
         </div>
     );
 };

@@ -25,9 +25,10 @@ interface Props {
 }
 
 const Clock: React.FC<Props> = ({ setIsNightTime }) => {
-  const [date, setDate] = useState<Date>(new Date());
-  const [isNightTime, setIsNightTimeState] = useState<boolean>(false);
+  const [date, setDate] = useState<Date>(new Date()); // Current date and time
+  const [isNightTime, setIsNightTimeState] = useState<boolean>(false); // Night time between 12am - 6am
 
+  // Update date every second
   useEffect(() => {
     const timer = setInterval(() => {
       setDate(new Date());
@@ -35,6 +36,7 @@ const Clock: React.FC<Props> = ({ setIsNightTime }) => {
     return () => clearInterval(timer);
   }, []);
 
+  // Check if it's night time
   useEffect(() => {
     const hours = date.getHours();
     const isNight = hours >= 0 && hours < 6; // Night time between 12am - 6am
@@ -42,12 +44,15 @@ const Clock: React.FC<Props> = ({ setIsNightTime }) => {
     setIsNightTimeState(isNight);
   }, [date, setIsNightTime]);
 
+  // Format date and time
   const days: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const formattedDate: string = `${days[date.getDay()]}. ${date.getDate()}`;
 
+  // Format time
   const formattedTime: string = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-  const shakeClass = isNightTime ? 'shake' : '';
+  const shakeClass = isNightTime ? 'shake' : ''; // Shake effect at night
 
+  // Determine season
   const month: number = date.getMonth();
   let season: string;
   if (month >= 2 && month <= 4) {
@@ -60,9 +65,10 @@ const Clock: React.FC<Props> = ({ setIsNightTime }) => {
     season = winter;
   }
 
-  const [weatherCode, setWeatherCode] = useState<number | null>(null);
-  const [weatherText, setWeatherText] = useState<string | null>(null);
+  const [weatherCode, setWeatherCode] = useState<number | null>(null); // Weather code
+  const [weatherText, setWeatherText] = useState<string | null>(null); // Weather text
 
+  // Fetch weather data
   useEffect(() => {
     const fetchWeather = () => {
       fetch(`https://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=auto:ip`)
@@ -73,13 +79,14 @@ const Clock: React.FC<Props> = ({ setIsNightTime }) => {
         })
         .catch(error => console.error('Error fetching weather:', error));
     };
-
+    
     fetchWeather();
     const timer = setInterval(fetchWeather, 3600000);
 
     return () => clearInterval(timer);
   }, []);
 
+  // Determine weather
   let weather: string;
   const weatherRain: number[] = [1063, 1150, 1153, 1168, 1171, 1180, 1183, 1186, 1189, 1192, 1195, 1198, 1201, 1240, 1243, 1246, 1273, 1276];
   const weatherSnow: number[] = [1066, 1114, 1117, 1210, 1213, 1216, 1219, 1222, 1225, 1237, 1255, 1258, 1261, 1264, 1279, 1282];
@@ -87,6 +94,7 @@ const Clock: React.FC<Props> = ({ setIsNightTime }) => {
   const weatherStorm: number[] = [1087, 1273, 1276, 1279, 1282];
   const weatherSun: number[] = [1000, 1003, 1006, 1009];
 
+  // Weather icons
   if (weatherCode !== null) {
     if (weatherRain.includes(weatherCode)) {
       weather = rain;
@@ -105,6 +113,7 @@ const Clock: React.FC<Props> = ({ setIsNightTime }) => {
     weather = sun;
   }
 
+  // Determine clock hand rotation
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const seconds = date.getSeconds();
@@ -116,7 +125,8 @@ const Clock: React.FC<Props> = ({ setIsNightTime }) => {
     rotation = 0;
   }
 
-  let streak: number = 0;
+  // Streak counter
+  let streak: number = 88888888;
   let streakArray: string[] = streak.toString().split('');
   const streakComponent = streakArray.map((digit, index) => (
     <span key={index}>{digit}</span>

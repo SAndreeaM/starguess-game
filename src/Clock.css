@@ -1,10 +1,11 @@
 /* CLOCK Styles */
 .Clock {
-    margin: 32px;
-    width: 15vw;
+    margin: 5vmin 2.5vmax;
+    width: 15vmax;
     position: absolute;
     top: 0;
     right: 0;
+    overflow: visible;
 }
 
 .Clock p {
@@ -14,7 +15,7 @@
 }
 
 .clock-hand {
-    width: 1.3vw;
+    width: 1.3vmax;
     position: absolute;
     transform-origin: 50% 100%;
     top: 5%;
@@ -24,17 +25,17 @@
 
 .date, .time {
     font-family: SVThin;
-    font-size: 2vw;
+    font-size: 3vmin;
     text-align: center;
     left: 16%;
 }
 
 .date {
-    top: 9.5%;
+    top: 10.5%;
 }
 
 .time {
-    top: 46.5%;
+    top: 49%;
 }
 
 /* SHAKE ANIMATION for TIME */
@@ -61,26 +62,26 @@
     width: 100%;
     position: absolute;
     font-family: SVBold;
-    font-size: 1.75vw;
     text-align: end;
     color: maroon;
-    top: 78.5%;
-    left: -10%;
+    top: 82%;
+    left: -9%;
     transform-origin: 100% 50%;
 }
 
 .streak > span {
+    font-size: 250%;
     display: inline-block;
-    width : 1.25vw;
+    width : 8.6%;
     text-align: center;
 }
 
 .season, .weather {
-    width: 2.6vw;
+    width: 17%;
     position: absolute;
     top: 26.5%;
     transform-origin: 50% 50%;
-    z-index: 0;
+    z-index: 1;
 }
 
 .weather {
@@ -88,5 +89,5 @@
 }
 
 .season {
-  left: 73%;
+    left: 73%;
 }

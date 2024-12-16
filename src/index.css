@@ -23,4 +23,9 @@
   margin: 0;
   box-sizing: border-box;
   overflow-x: hidden;
+  font-size: 1vmin;
+}
+
+a {
+  font-size: inherit;
 }
