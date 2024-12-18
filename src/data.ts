@@ -65,6 +65,61 @@ const characters: Character[] = [
         lovedGifts: [111, 112],
         hatedGifts: [209, 210],
         quotes: ["Greetings!", "How are you?"]
+    },
+    {
+        id: 6,
+        name: "Abigail",
+        image: "https://example.com/images/abigail.png",
+        birthday: 1,
+        gender: false,
+        marriageable: true,
+        lovedGifts: [113, 114],
+        hatedGifts: [211, 212],
+        quotes: ["Oh, hi!", "How's it going?"]
+    },
+    {
+        id: 7,
+        name: "Maru",
+        image: "https://example.com/images/maru.png",
+        birthday: 2,
+        gender: false,
+        marriageable: true,
+        lovedGifts: [115, 116],
+        hatedGifts: [213, 214],
+        quotes: ["Hello!", "Nice to see you!"]
+    },
+    {
+        id: 8,
+        name: "Penny",
+        image: "https://example.com/images/penny.png",
+        birthday: 3,
+        gender: false,
+        marriageable: true,
+        lovedGifts: [117, 118],
+        hatedGifts: [215, 216],
+        quotes: ["Hi there!", "Good to see you!"]
+    },
+    {
+        id: 9,
+        name: "Sebastian",
+        image: "https://example.com/images/sebastian.png",
+        birthday: 4,
+        gender: true,
+        marriageable: true,
+        lovedGifts: [119, 120],
+        hatedGifts: [217, 218],
+        quotes: ["Hey.", "What's up?"]
+    },
+    {
+        id: 10,
+        name: "Harvey",
+        image: "https://example.com/images/harvey.png",
+        birthday: null,
+        gender: true,
+        marriageable: true,
+        lovedGifts: [121, 122],
+        hatedGifts: [219, 220],
+        quotes: ["Hello!", "How are you?"]
     }
 ];
 
