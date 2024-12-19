@@ -30,3 +30,6 @@ src/config.ts
 src/assets/
 src/fonts/
 src/images/
+
+# Data
+src/data/

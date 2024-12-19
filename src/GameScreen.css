@@ -1,10 +1,12 @@
 /* GAME SCREEN Styles */
 .game-screen {
+    padding: 2.5vmin 2.5vmax;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 
     width: 60vw;
+    gap: 2.5vmin;
 }
 
 .search-container {
@@ -52,4 +54,40 @@
 
 .dropdown-container li:hover {
     background-color: #f0f0f0;
+}
+
+.characters-container {
+    width: 100%;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.character-row {
+    display: flex;
+    width: 100%;
+    padding: 1vmin 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.character-cell {
+    flex: 1;
+    padding: 0 1vmin;
+    text-align: center;
+    font-size: 2vmin;
+    word-wrap: break-word;
+}
+
+.character-header {
+    font-weight: bold;
+    background-color: #f0f0f0;
+    font-family: 'SDBold';
+}
+
+table {
+    width: 100%;
+    height: auto;
+    border-collapse: collapse;
 }

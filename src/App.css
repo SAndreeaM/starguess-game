@@ -14,6 +14,15 @@
 
 }
 
+.table {
+    border-image-slice: 33%;
+    border-image-width: 20px;
+    border-image-outset: 0px;
+    border-image-repeat: repeat repeat;
+    border-image-source: url('./images/border-thin.png');
+    border-style: solid;
+}
+
 img {
     -webkit-user-drag: none;
     -webkit-user-select: none;
@@ -29,18 +38,19 @@ img {
 }
 
 html, body {
-    height: 100vh;
+    height: 100%;
     margin: 0;
 }
 
 .flexbox {
     display: flex;
     width: 100vw;
-    height: 100vh;
+    height: auto;
 }
 
 .App {
-    padding: 5vmin 2.5vmax;
+    flex: 1;
+    padding: 2.5vmin 2.5vmax 0 2.5vmax;
     background-size: cover;
     background-position: center;
     z-index: -99;
@@ -69,13 +79,14 @@ html, body {
 }
 
 footer {
-    position: absolute;
+    position: relative;
     bottom: 0;
     width: 100%;
     text-align: center;
     font-family: SVThin;
     font-size: 2vmin;
     color: white;
+    margin: 2.5vmin 2.5vmax;
 }
 
 footer a {
