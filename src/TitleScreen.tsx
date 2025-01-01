@@ -54,13 +54,15 @@ const TitleScreen: React.FC<Props> = ({ onPageChange, className }) => {
         const petalCount = utils.getRandomInt(2, 5);
         const animationDuration = 5000;
 
+        const { mouseX, mouseY } = utils.getMousePosition(event.nativeEvent);
+
         for (let i = 0; i < petalCount; i++) {
             // Create petal element
             const newPetal = document.createElement('img');
             newPetal.src = Math.random() > 0.5 ? petal : petal_flipped;
             newPetal.className = 'petal';
-            newPetal.style.left = `${event.clientX}px`;
-            newPetal.style.top = `${event.clientY}px`;
+            newPetal.style.left = `${mouseX}px`;
+            newPetal.style.top = `${mouseY}px`;
 
             // Set random color
             newPetal.style.filter = `hue-rotate(${utils.getRandomInt(0, 360)}deg)`;
