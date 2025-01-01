@@ -5,6 +5,7 @@ import './GameScreen.css';
 
 // Import assets
 import scroll from './assets/scroll.png';
+import character_bg from './assets/character-bg.svg';
 
 interface GameScreenProps {
     className?: string;
@@ -24,9 +25,9 @@ const GameScreen: React.FC<GameScreenProps> = ({ className }) => {
             .map((character) => (
                 <li
                     key={character.id}
-                    onClick={() => onCharacterSelect(character.id)}
+                    onMouseDown={() => onCharacterSelect(character.id)}
                     role="option"
-                    className="dropdown-item"
+                    className='dropdown-item'
                 >
                     {character.name}
                 </li>
@@ -59,18 +60,23 @@ const GameScreen: React.FC<GameScreenProps> = ({ className }) => {
 
             // Add the character to the selected list
             setSelectedCharactersContent((prevContent) => [
-                <div className="character-row" key={id}>
-                    <div className="character-cell">{character.name}</div>
-                    <div className="character-cell">{character.birthday}</div>
-                    <div className="character-cell">{character.gender}</div>
-                    <div className="character-cell">
-                        {character.marriageable ? 'Yes' : 'No'}
+                <div className='character-row' key={id}>
+                    <div className='character character-cell'>
+                        <img src={character_bg} alt={character.name} className='character-bg' />
+                        <img src={character.image} alt={character.name} className='character-image' />
+                        <div className='character-name'>{character.name}</div>
                     </div>
-                    <div className="character-cell">{character.lovedGifts}</div>
-                    <div className="character-cell">{character.hatedGifts}</div>
+                    <div className='character-cell'>{character.birthday ? character.birthday : "N/A"}</div>
+                    <div className='character-cell'>{character.gender}</div>
+                    <div className='character-cell'>
+                        {character.marriageable ? "Yes" : "No"}
+                    </div>
+                    <div className='character-cell'>{character.lovedGifts}</div>
+                    <div className='character-cell'>{character.hatedGifts}</div>
                 </div>,
                 ...prevContent
             ]);
+
         }
         setSearchPrompt(''); // Clear search bar
     };
@@ -86,7 +92,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ className }) => {
                         value={searchPrompt}
                         onChange={(e) => setSearchPrompt(e.target.value)}
                         onFocus={() => setIsInputActive(true)}
-                        onBlur={() => setTimeout(() => setIsInputActive(false), 100)}
+                        onBlur={() => setIsInputActive(false)}
                     />
                 </div>
                 {(searchPrompt.length > 0 || isInputActive) && (

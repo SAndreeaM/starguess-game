@@ -118,12 +118,16 @@ const Clock: React.FC<Props> = ({ setIsNightTime }) => {
   const minutes = date.getMinutes();
   const seconds = date.getSeconds();
   let rotation: number;
-  if (hours >= 6 && hours < 26) {
-    const totalSeconds = (hours - 6) * 3600 + minutes * 60 + seconds;
+
+  const normalizedHours = hours < 6 ? hours + 24 : hours;
+
+  if (normalizedHours >= 6 && normalizedHours < 26) {
+    const totalSeconds = (normalizedHours - 6) * 3600 + minutes * 60 + seconds;
     rotation = -180 + (totalSeconds / 72000) * 180;
   } else {
     rotation = 0;
   }
+
 
   // Streak counter
   let streak: number = 88888888;
