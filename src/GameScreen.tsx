@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import data from './data/data.ts';
+import data from './data/data.json';
 
 import './GameScreen.css';
 
@@ -7,11 +7,16 @@ import './GameScreen.css';
 import scroll from './assets/scroll.png';
 import character_bg from './assets/character-bg.svg';
 
-interface GameScreenProps {
+import spring from './assets/spring.svg';
+import summer from './assets/summer.svg';
+import autumn from './assets/autumn.svg';
+import winter from './assets/winter.svg';
+
+interface Props {
     className?: string;
 }
 
-const GameScreen: React.FC<GameScreenProps> = ({ className }) => {
+const GameScreen: React.FC<Props> = ({ className }) => {
     const [searchPrompt, setSearchPrompt] = useState<string>(''); // Search prompt
     const [dropdownContent, setDropdownContent] = useState<JSX.Element[]>([]); // Dropdown content
     const [isInputActive, setIsInputActive] = useState<boolean>(false); // Track if input is active
@@ -19,8 +24,8 @@ const GameScreen: React.FC<GameScreenProps> = ({ className }) => {
     const [selectedCharacterIds, setSelectedCharacterIds] = useState<number[]>([]); // Track selected character IDs
 
     // Function to map characters to dropdown items
-    const getDropdownContent = (characters: typeof data) => {
-        return characters
+    const getDropdownContent = (characters: typeof data.characters) => {
+            return characters
             .filter((character) => !selectedCharacterIds.includes(character.id)) // Exclude selected characters
             .map((character) => (
                 <li
@@ -36,24 +41,24 @@ const GameScreen: React.FC<GameScreenProps> = ({ className }) => {
 
     // Initialize dropdownContent with full list from data
     useEffect(() => {
-        setDropdownContent(getDropdownContent(data));
+        setDropdownContent(getDropdownContent(data.characters));
     }, [selectedCharacterIds]); // Re-run whenever selectedCharacterIds changes
 
     // Update searchPrompt and filter dropdown content
     useEffect(() => {
         if (searchPrompt.trim()) {
-            const filteredContent = data.filter((character) =>
+            const filteredContent = data.characters.filter((character) =>
                 character.name.toLowerCase().includes(searchPrompt.toLowerCase())
             );
             setDropdownContent(getDropdownContent(filteredContent)); // Filtered dropdown content
         } else {
-            setDropdownContent(getDropdownContent(data)); // Reset to full list if search is empty
+            setDropdownContent(getDropdownContent(data.characters)); // Reset to full list if search is empty
         }
     }, [searchPrompt, selectedCharacterIds]); // Re-run whenever searchPrompt or selectedCharacterIds changes
 
     // Handle character selection
     const onCharacterSelect = (id: number) => {
-        const character = data.find((char) => char.id === id);
+        const character = data.characters.find((char) => char.id === id);
         if (character) {
             // Add the character's ID to selectedCharacterIds
             setSelectedCharacterIds((prevIds) => [...prevIds, id]);
@@ -66,13 +71,41 @@ const GameScreen: React.FC<GameScreenProps> = ({ className }) => {
                         <img src={character.image} alt={character.name} className='character-image' />
                         <div className='character-name'>{character.name}</div>
                     </div>
-                    <div className='character-cell'>{character.birthday ? character.birthday : "N/A"}</div>
-                    <div className='character-cell'>{character.gender}</div>
+                    <div className='character-birthday character-cell'>
+                        {character.birthday === -1 ? "Unknown" : (
+                            <img 
+                                src={
+                                    character.birthday === 1 ? spring :
+                                    character.birthday === 2 ? summer :
+                                    character.birthday === 3 ? autumn :
+                                    winter
+                                } 
+                                alt="Season"
+                            />
+                        )}
+                    </div>
+                    <div className='character-cell'>
+                        {character.gender === 0 ? "Male" : character.gender === 1 ? "Female" : "Unknown"}
+                    </div>
                     <div className='character-cell'>
                         {character.marriageable ? "Yes" : "No"}
                     </div>
-                    <div className='character-cell'>{character.lovedGifts}</div>
-                    <div className='character-cell'>{character.hatedGifts}</div>
+                    <div className='character-gifts character-cell'>
+                        {character.lovedGifts.map((giftId) => {
+                            const gift = data.items.find(item => item.id === giftId);
+                            return gift ? (
+                                <img key={giftId} src={gift.image} alt={gift.name} />
+                            ) : null;
+                        })}
+                    </div>
+                    <div className='character-gifts character-cell flexbox'>
+                        {character.hatedGifts.map((giftId) => {
+                            const gift = data.items.find(item => item.id === giftId);
+                            return gift ? (
+                                <img key={giftId} src={gift.image} alt={gift.name} />
+                            ) : null;
+                        })}
+                    </div>
                 </div>,
                 ...prevContent
             ]);
@@ -112,7 +145,9 @@ const GameScreen: React.FC<GameScreenProps> = ({ className }) => {
                     <div className="character-cell">Loved Gifts</div>
                     <div className="character-cell">Hated Gifts</div>
                 </div>
-                {selectedCharactersContent}
+                <div className="selected-characters-container flexbox">
+                    {selectedCharactersContent}
+                </div>
             </div>
         </div>
     );
