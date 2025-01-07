@@ -49,7 +49,7 @@ const Clock: React.FC<Props> = ({ setIsNightTime }) => {
   const formattedDate: string = `${days[date.getDay()]}. ${date.getDate()}`;
 
   // Format time
-  const formattedTime: string = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+  const formattedTime: string = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
   const shakeClass = isNightTime ? 'shake' : ''; // Shake effect at night
 
   // Determine season
